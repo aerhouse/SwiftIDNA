@@ -409,7 +409,13 @@ extension CharacterSet {
         set.insert(charactersIn: UnicodeScalar(0x4E00)!...UnicodeScalar(0x9FA5)!)
         set.insert(charactersIn: UnicodeScalar(0xA000)!...UnicodeScalar(0xA48C)!)
         set.insert(charactersIn: UnicodeScalar(0xAC00)!...UnicodeScalar(0xD7A3)!)
-        set.insert(charactersIn: UnicodeScalar(0xD800)!...UnicodeScalar(0xFA2D)!)
+        // Per RFC 3454 sec 5.5:
+        //      0xD800-0xDFFF are permanently reserved for use as surrogate
+        //      code values in the UTF-16 encoding, will never be assigned
+        //      to characters in the Unicode repertoire
+        // Though this range is specified in Appendix D.2 as "L" characters,
+        //  they're not included in this character set.
+        set.insert(charactersIn: UnicodeScalar(0xE000)!...UnicodeScalar(0xFA2D)!)
         set.insert(charactersIn: UnicodeScalar(0xFA30)!...UnicodeScalar(0xFA6A)!)
         set.insert(charactersIn: UnicodeScalar(0xFB00)!...UnicodeScalar(0xFB06)!)
         set.insert(charactersIn: UnicodeScalar(0xFB13)!...UnicodeScalar(0xFB17)!)
