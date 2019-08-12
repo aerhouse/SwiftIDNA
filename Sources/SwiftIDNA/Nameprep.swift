@@ -1,6 +1,6 @@
 import Foundation
 
-public enum NameprepErrors: Error {
+public enum NameprepError: Error {
     case invalidBidirectional
     case prohibitedOutput
     case containsUnassignedCodePoints
@@ -18,19 +18,19 @@ extension IDNA {
         // 3. Check for prohibited output
         _ = try str.unicodeScalars.map {
             guard !prohibited.contains($0) else {
-                throw NameprepErrors.prohibitedOutput
+                throw NameprepError.prohibitedOutput
             }
         }
         
         // 4. Check bidirectionality
         guard validBidirectionalString(str) else {
-            throw NameprepErrors.invalidBidirectional
+            throw NameprepError.invalidBidirectional
         }
         
         if !allowUnassigned {
             _ = try str.unicodeScalars.map {
                 guard !unassigned.contains($0) else {
-                    throw NameprepErrors.containsUnassignedCodePoints
+                    throw NameprepError.containsUnassignedCodePoints
                 }
             }
         }
