@@ -65,7 +65,13 @@ extension CharacterSet {
         set.insert(charactersIn: UnicodeScalar(0xEFFFE)!...UnicodeScalar(0xEFFFF)!)
         set.insert(charactersIn: UnicodeScalar(0xFFFFE)!...UnicodeScalar(0xFFFFF)!)
         set.insert(charactersIn: UnicodeScalar(0x10FFFE)!...UnicodeScalar(0x10FFFF)!)
-        set.insert(charactersIn: UnicodeScalar(0xD800)!...UnicodeScalar(0xDFFF)!)
+        // Per RFC 3454 sec 5.5:
+        //      0xD800-0xDFFF are permanently reserved for use as surrogate
+        //      code values in the UTF-16 encoding, will never be assigned
+        //      to characters in the Unicode repertoire
+        // Swift won't create a string with this range, so it's excluded.
+        //
+        // set.insert(charactersIn: UnicodeScalar(0xD800)!...UnicodeScalar(0xDFFF)!)
         set.insert(charactersIn: UnicodeScalar(0xFFF9)!...UnicodeScalar(0xFFF9)!)
         set.insert(charactersIn: UnicodeScalar(0xFFFA)!...UnicodeScalar(0xFFFA)!)
         set.insert(charactersIn: UnicodeScalar(0xFFFB)!...UnicodeScalar(0xFFFB)!)

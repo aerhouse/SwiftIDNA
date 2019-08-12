@@ -6,4 +6,6 @@ struct IDNA {
     lazy var prohibited = CharacterSet.prohibitedOutput
     lazy var ralCat = CharacterSet.bidirectionalRandALCat
     lazy var lCat = CharacterSet.bidirectionalLCat
+    
+    let acePrefix = "xn--"
 }
