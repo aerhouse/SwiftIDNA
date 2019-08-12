@@ -1,7 +1,7 @@
 import Foundation
 
 extension IDNA {
-    mutating func validBidirectionalString(_ str: String) -> Bool {
+    mutating func validBidirectionalString<S: StringProtocol>(_ str: S) -> Bool {
         let str = str.unicodeScalars
         
         guard let first = str.first, let last = str.last else {

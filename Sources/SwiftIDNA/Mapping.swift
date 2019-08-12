@@ -1,6 +1,6 @@
 import Foundation
 
-extension String {
+extension StringProtocol {
     func idnaMap() -> String {
         let scalars = self.unicodeScalars.flatMap { (scalar) -> [ UnicodeScalar ] in
             scalar.mapTo() ?? [ scalar ]
