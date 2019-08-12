@@ -1,7 +1,7 @@
 import XCTest
 @testable import SwiftIDNA
 
-final class SwiftIDNATests: XCTestCase {
+final class CodePointMapping: XCTestCase {
     func testMap1() {
         let input = "\u{00DF}"
         let expected = "ss"
@@ -29,28 +29,11 @@ final class SwiftIDNATests: XCTestCase {
         let computed = input.idnaMap()
         XCTAssertEqual(expected, computed)
     }
-    
-    func testValidBidi() {
-        let input = "\u{07B1}1\u{200F}"
-        XCTAssertTrue(input.unicodeScalars.validBidirectionalString())
-    }
-    
-    func testMixLandRAL() {
-        let input = "\u{07B1}a\u{200F}"
-        XCTAssertFalse(input.unicodeScalars.validBidirectionalString())
-    }
-    
-    func testNoTrailingRAL() {
-        let input = "\u{07B1}1"
-        XCTAssertFalse(input.unicodeScalars.validBidirectionalString())
-    }
-    
-    func testNoLeadingRAL() {
-        let input = "1\u{200F}"
-        XCTAssertFalse(input.unicodeScalars.validBidirectionalString())
-    }
 
     static var allTests = [
         ("testMap1", testMap1),
+        ("testMap2", testMap2),
+        ("testMap3", testMap3),
+        ("testMap4", testMap4)
     ]
 }

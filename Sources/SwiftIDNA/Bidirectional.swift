@@ -1,14 +1,12 @@
 import Foundation
 
-extension String.UnicodeScalarView {
-    func validBidirectionalString() -> Bool {
-        guard let first = self.first, let last = self.last else {
+extension IDNA {
+    mutating func validBidirectionalString(_ str: String) -> Bool {
+        let str = str.unicodeScalars
+        
+        guard let first = str.first, let last = str.last else {
             return true
         }
-        
-        // Prevent uneccesary recalculation of sets
-        let ralCat = CharacterSet.bidirectionalRandALCat
-        let lCat = CharacterSet.bidirectionalLCat
         
         let hasRandAL = CharacterSet.bidirectionalRandALCat.contains(first)
         let lastRandAL = CharacterSet.bidirectionalRandALCat.contains(last)
@@ -18,7 +16,7 @@ extension String.UnicodeScalarView {
         
         var hasL = false
         
-        for scalar in self {
+        for scalar in str {
             if ralCat.contains(scalar), !hasRandAL {
                 return false
             }
