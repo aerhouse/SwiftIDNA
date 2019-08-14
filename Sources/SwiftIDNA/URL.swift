@@ -43,6 +43,14 @@ extension URL {
         
         return idnLabels.joined(separator: ".")
     }
+    
+    public var hasIDN: Bool {
+        guard let host = self.host else { return false }
+        
+        let labels = host.split(separator: ".")
+        
+        return labels.first(where: { $0.hasPrefix("xn--") }) != nil
+    }
 }
 
 func replaceLabelSeparators<S: StringProtocol>(_ host: S) -> String {
