@@ -159,8 +159,7 @@ extension String.UnicodeScalarView {
             guard !overflow else { throw PunycodeError.overflow }
             
             guard let scalar = UnicodeScalar(n) else { throw PunycodeError.invalidCodePoint }
-            let idx = output.index(output.startIndex, offsetBy: i)
-            output.insert(scalar, at: idx)
+            output.insert(scalar, at: output.index(output.startIndex, offsetBy: i))
             i += 1
         }
         
