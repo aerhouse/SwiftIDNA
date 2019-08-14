@@ -123,9 +123,7 @@ extension String.UnicodeScalarView {
         var overflow = false
         var digit: Int
         
-        while !points.isEmpty {
-            var point: UnicodeScalar
-            
+        while !points.isEmpty {            
             oldi = i
             w = 1
             k = base
