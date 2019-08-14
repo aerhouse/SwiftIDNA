@@ -3,6 +3,7 @@ import Foundation
 public enum ToASCIIError: Error {
     case invalidHostLabel
     case containsAcePrefix
+    case invalidLabelLength
 }
 
 extension IDNA {
@@ -31,10 +32,12 @@ extension IDNA {
                 throw ToASCIIError.containsAcePrefix
             }
             
-            // TODO: punycode
+            str = try str.unicodeScalars.encodePunycode()
             
             str.insert(contentsOf: acePrefix, at: str.startIndex)
         }
+        
+        guard str.count >= 1, str.count <= 63 else { throw ToASCIIError.invalidLabelLength }
         
         return str
     }

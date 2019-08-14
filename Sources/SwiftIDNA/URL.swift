@@ -2,9 +2,9 @@ import Foundation
 
 @available(OSX 10.15, iOS 13.0, tvOS 13.0, *)
 extension URL {
-    public init?<S: StringProtocol>(idnURLString: S) {
-        if let hostRange = extractPotentialHost(idnURLString) {
-            let labels = replaceLabelSeparators(idnURLString[hostRange]).split(separator: ".")
+    public init?<S: StringProtocol>(idnString: S) {
+        if let hostRange = extractPotentialHost(idnString) {
+            let labels = replaceLabelSeparators(idnString[hostRange]).split(separator: ".")
             
             var idna = IDNA()
             do {
@@ -14,7 +14,9 @@ extension URL {
                 
                 let idnHost = idnLabels.joined(separator: ".")
                 
-                let urlString = idnURLString.replacingCharacters(in: hostRange, with: idnHost)
+                let urlString = idnString.replacingCharacters(in: hostRange, with: idnHost)
+                
+                guard urlString.count <= 253 else { return nil }
                 
                 if let url = URL(string: urlString) {
                     self = url
