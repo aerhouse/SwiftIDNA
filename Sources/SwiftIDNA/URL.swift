@@ -30,6 +30,19 @@ extension URL {
             return nil
         }
     }
+    
+    public var idn: String? {
+        guard let host = self.host else { return nil }
+        
+        let labels = host.split(separator: ".")
+        
+        var idna = IDNA()
+        let idnLabels = labels.map {
+            idna.toUnicode($0, allowUnassigned: true, useSTD3ASCIIRules: true)
+        }
+        
+        return idnLabels.joined(separator: ".")
+    }
 }
 
 func replaceLabelSeparators<S: StringProtocol>(_ host: S) -> String {

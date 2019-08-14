@@ -9,6 +9,7 @@ final class IDNURL: XCTestCase {
         let expected = "http://xn--rksmrgs-5wao1o.josefsson.org"
         let url = URL(idnString: input)!
         XCTAssertEqual(expected, url.absoluteString)
+        XCTAssertEqual("räksmörgås.josefsson.org", url.idn)
     }
     
     func testURL2() {
@@ -16,6 +17,7 @@ final class IDNURL: XCTestCase {
         let expected = "http://xn--99zt52a.w3.mag.keio.ac.jp#fragment"
         let url = URL(idnString: input)!
         XCTAssertEqual(expected, url.absoluteString)
+        XCTAssertEqual("納豆.w3.mag.keio.ac.jp", url.idn)
     }
     
     func testURL3() {
@@ -30,6 +32,7 @@ final class IDNURL: XCTestCase {
         let expected = "http://xn--visegrd-mwa.com/path"
         let url = URL(idnString: input)!
         XCTAssertEqual(expected, url.absoluteString)
+        XCTAssertEqual("visegrád.com", url.idn)
     }
     
     func testURL5() {
@@ -37,6 +40,7 @@ final class IDNURL: XCTestCase {
         let expected = "http://xn--hzipatika-01a.com/"
         let url = URL(idnString: input)!
         XCTAssertEqual(expected, url.absoluteString)
+        XCTAssertEqual("házipatika.com", url.idn)
     }
     
     func testURL6() {
@@ -44,5 +48,6 @@ final class IDNURL: XCTestCase {
         let expected = "http://xn--80aildf0a.com/"
         let url = URL(idnString: input)!
         XCTAssertEqual(expected, url.absoluteString)
+        XCTAssertEqual("айкидо.com", url.idn)
     }
 }
